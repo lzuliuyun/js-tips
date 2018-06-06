@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Demo2</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      vertical-align: baseline;
+    }
+
+    .box {
+      width: 1000px;
+      height: 500px;
+      background-color: #ccc;
+      font-size: 20px;
+      padding: 15px 20px;
+      text-align: left
+    }
+  </style>
+</head>
+<body>
+  <div class="box" id="box">
+    box box
+  </div>
+
+  <script>
+    var boxEl = document.getElementById('box')
+
+    function setWidth () {
+      var width = window.innerWidth;
+      if (width >= 1000) {
+        return
+      }
+
+      boxEl.style.width = width + 'px'
+      console.log('throttle')
+    }
+
+     window.onresize = throttle(setWidth, 300)
+
+     function throttle(fn, time) {
+       var canRun = true;
+
+       return function () {
+         if (!canRun) return;
+         canRun = false;
+
+         setTimeout(() => {
+           //箭头函数没有this, 没有arguments，因此取得是上一级的上下文
+           fn.apply(this, arguments);
+           canRun = true
+         }, time)
+       }
+     }
+  </script>
+</body>
+</html>
