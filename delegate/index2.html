@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>delegate</title>
+</head>
+<body>
+  <div id="container">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+</body>
+
+<script>
+  function delegate(parent, eventType, selector, fn) {
+    if (typeof parent === 'string') {
+      var parent = document.getElementById(parent);
+      if (!parent) {
+        throw new Error('parent not find')
+      }
+    }
+
+    if (typeof selector !== 'string') {
+      throw new Error('selector is not string');
+    }
+
+    if (typeof fn !== 'function') {
+      throw new Error('fn is not function')
+    }
+
+    parent.addEventListener(eventType, function(e) {
+      if (e.target.id === selector || e.target.nodeName.toLowerCase() === selector || e.target.className.indexOf(selector) > -1) {
+        fn.call(e.target, e)
+      }
+    })
+  }
+
+  delegate('container', 'click', 'li', function (e) { 
+    alert(e.target.innerText)
+  })
+</script>
+</html>

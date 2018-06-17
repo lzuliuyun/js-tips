@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>delegate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+  <div>
+    <ul id="ul-el">
+    </ul>
+  </div>
+</body>
+<script>
+  window.onload = function () {
+    addULChild()
+    doDelegate()
+  }
+
+  function addULChild () {
+    var ulEl = document.getElementById('ul-el');
+    for (var i = 0; i < 10; i++) {
+      var li = document.createElement('li');
+      li.innerText = i;
+      //事件监听中 不需要on
+      // li.addEventListener('dblclick', function (e) { 
+      //   console.log(e.target.innerText)
+      //  });
+
+
+      //on 作为元素的属性
+      // li.ondblclick = function(e) {
+      //   console.log(e.target.innerText)
+      // }
+
+      ulEl.appendChild(li);
+    }
+  }
+
+  function doDelegate() {
+    var ulEl = document.getElementById('ul-el')
+    ulEl.addEventListener('click', function (e) {
+      //currentTarget target
+      console.log(e.currentTarget.nodeName);
+
+      if (e.target && e.target.nodeName.toLowerCase() === 'li') {
+        console.log('delegate', e.target.innerText)
+      }
+     })
+  }
+</script>
+</html>
