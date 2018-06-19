@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo</title>
+  <style>
+    body {
+      height: 3000px;
+      background-color: #e9e9e9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Body</h1>
+  <script>
+    var i = 0;
+    function fn() {
+      document.getElementsByTagName('h1')[0].innerText = i++;
+    }
+
+    document.body.onscroll = debounce(fn, 300)
+
+    function debounce(func, time, immediate) {
+      var timeout, result;
+
+      return function() {
+        var self = this;
+        var args = arguments;
+        clearTimeout(timeout);
+
+        if(immediate) {
+          //意思反过来，一直执行的时候，则有timeout，此时不执行，否则执行
+          if (!timeout) {
+            result = func.apply(self, args);
+          }
+
+          timeout = setTimeout(function() {
+            timeout = null;
+          }, time)
+        } else {
+          timeout = setTimeout(function() {
+            func.apply(self, args);
+          }, time)
+        }
+
+        return result;
+      }
+    }
+  </script>
+</body>
+</html>

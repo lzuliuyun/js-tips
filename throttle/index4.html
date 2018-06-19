@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Demo2</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      vertical-align: baseline;
+    }
+
+    .box {
+      width: 1000px;
+      height: 500px;
+      background-color: #ccc;
+      font-size: 20px;
+      padding: 15px 20px;
+      text-align: left
+    }
+  </style>
+</head>
+<body>
+  <div class="box" id="box">
+    box box
+  </div>
+
+  <script>
+    var boxEl = document.getElementById('box')
+
+    function setWidth () {
+      var width = window.innerWidth;
+      if (width >= 1000) {
+        return
+      }
+
+      boxEl.style.width = width + 'px'
+      console.log('throttle', new Date())
+    }
+
+     window.onresize = throttle(setWidth, 1000)
+
+     function throttle(func, wait) {
+      var timeout;
+      var privious = 0;
+      
+      var throttled = function() {
+        var now = +new Date();
+        var remain = wait - (now - privious);
+        // console.log('remain', remain);
+
+        var context = this;
+        var args = arguments;
+
+        if (remain <= 0 || remain > wait) {
+          if(timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+          }
+
+          privious = now;
+          func.apply(context, args);
+
+        } else if(!timeout) {
+          console.log('test', remain)
+          timeout = setTimeout(function() {
+            privious = +new Date();
+            timeout = null;
+            func.apply(context, args);
+          }, remain);
+        }
+      }
+
+       return throttled;
+     }
+  </script>
+</body>
+</html>
