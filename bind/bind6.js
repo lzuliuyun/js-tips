@@ -1,31 +1,3 @@
-var foo = {
-  value: 1
-}
-
-function bar(name, age) {
-  console.log(this.value)
-  console.log(name)
-  console.log(age)
-}
-
-var bindFoo = bar.bind(foo, 'aa')
-bindFoo(18)
-
-Function.prototype.bind2 = function(contex) {
-  var self = this;
-  var args = Array.prototype.slice.call(arguments, 1)
-
-  return function() {
-    var bindArgs = Array.prototype.slice.call(arguments)
-
-    return self.apply(contex, args.concat(bindArgs))
-  }
-}
-
-var bindFoo2 = bar.bind2(foo, 'aa')
-bindFoo2(18)
-
-
 Function.prototype.bind3 = Function.prototype.bind || function (context) {
   if (typeof this !== "function") {
     throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
@@ -46,7 +18,7 @@ Function.prototype.bind3 = Function.prototype.bind || function (context) {
   // fNOP.prototype = this.prototype;
   //如果要继承this，为何不用 new this.prototype.constructor();
   // fBound.prototype = new fNOP();
-  // fBound.prototype = new this.prototype.constructor;
+  // fBound.prototype = new this.prototype.constructor; 这样写行不行？？to-do
 
   fBound.prototype = Object.create(this.prototype);
   return fBound;
