@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>storage</title>
+
+  <script>
+    window.addEventListener('storage', function (e) {
+      document.querySelector('span').innerHTML = e.key + ',' +  e.newValue + ',' + e.oldValue;
+    })
+
+    setTimeout(()=>{
+      window.localStorage.test = 'test' + Math.random();
+    }, 3000)
+  </script>
+</head>
+<body>
+  <div>
+    <span>span</span>
+  </div>
+</body>
+</html>

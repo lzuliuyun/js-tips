@@ -32,3 +32,35 @@ var res = data.reduce((res, cur, index)=>{
 }, []);
 
 console.log(res);
+
+let isSameORSeqNum = (num) => {
+  let numStrs = [...(num + '')];
+  let res = numStrs.reduce((data, cur, index) => {
+    if (index === 0) {
+      data.cur = cur;
+      return data;
+    }
+
+    data.same = cur - data.cur === 0 ? data.same + 1 : 0;
+    data.sameMax = Math.max(data.sameMax, data.same);
+
+    data.seq = cur - data.cur === 1 ? data.seq + 1 : 0;
+    data.seqMax = Math.max(data.seqMax, data.seq);
+
+    data.cur = cur;
+
+    return data;
+  }, {
+    cur: '',
+    same: 0,
+    sameMax: 0,
+    seq: 0,
+    seqMax: 0
+  })
+
+  console.log(res);
+  return res.sameMax > 1 || res.seqMax > 2;
+}
+
+
+console.log(isSeqNum(1211), isSeqNum(12111), isSeqNum(1211111234), isSeqNum(12234), isSeqNum(121234));
