@@ -63,4 +63,11 @@ let isSameORSeqNum = (num) => {
 }
 
 
-console.log(isSeqNum(1211), isSeqNum(12111), isSeqNum(1211111234), isSeqNum(12234), isSeqNum(121234));
+console.log(isSameORSeqNum(1211), isSameORSeqNum(12111), isSameORSeqNum(1211111234), isSameORSeqNum(12234), isSameORSeqNum(121234));
+
+
+var data = {a: 1, b:2, c:3 };
+for(key in data)
+{
+  console.log(key);
+}
